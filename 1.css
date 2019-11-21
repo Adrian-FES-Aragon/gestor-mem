@@ -17,7 +17,7 @@ h4{
 body{
   height: auto;
   position: relative;
-  background: -webkit-image-set( url("back1.jpg") 1x, url("back4.jpg") 2x ) no-repeat center fixed;
+  background: -webkit-image-set( url("back1.jpg") 1x , url("back4.jpg") 2x ) repeat center fixed;
   background-size: cover;
 }
 
