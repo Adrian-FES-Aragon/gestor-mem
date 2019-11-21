@@ -15,10 +15,15 @@ h4{
 }
 
 body{
-  background: url(back1.jpg) no-repeat center fixed;
-  background-size: cover;
   height: auto;
   position: relative;
+  background: -webkit-image-set( url("back1.jpg") 1x, url("back3.jpg") 2x ) no-repeat center fixed;
+  background-size: cover;
+}
+@media(max-width: 768px){
+   .mycontainer {
+        background-image:url("back4.jpg"); // small image
+    }
 }
 
 div{
@@ -75,6 +80,8 @@ img{
   margin-right: auto;
   max-width: 100%;
   height: auto;
+
+
 }
 
 a{
