@@ -17,13 +17,8 @@ h4{
 body{
   height: auto;
   position: relative;
-  background: -webkit-image-set( url("back1.jpg") 1x, url("back3.jpg") 2x ) no-repeat center fixed;
+  background: -webkit-image-set( url("back1.jpg") 1x, url("back4.jpg") 2x ) no-repeat center fixed;
   background-size: cover;
-}
-@media(max-width: 768px){
-   .mycontainer {
-        background-image:url("back4.jpg"); // small image
-    }
 }
 
 div{
