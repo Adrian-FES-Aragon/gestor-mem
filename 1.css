@@ -1,0 +1,117 @@
+h1, h2{
+  padding-top: 20px;
+  margin-left: 30px;
+  padding-bottom: 0px;
+  color: lightblue;
+  font:35px Helvetica, sans-serif;
+
+}
+
+h4{
+  margin-left: 30px;
+  padding-bottom: 0px;
+  color: lightgreen;
+  font:25px Helvetica, sans-serif;
+}
+
+body{
+  background: url(back1.jpg) no-repeat center fixed;
+  background-size: cover;
+  height: 500px;
+  position: relative;
+}
+
+div{
+  margin: 45px;
+  background-image: url("header-bg.png");
+  padding-bottom: 15px;
+  position: absolute;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.div2 {
+  margin: 45px;
+  padding-bottom: 50px;
+  position: absolute;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+ol{
+  font: 20px Helvetica, sans-serif;
+  color: lightyellow;
+  margin-left: 30px;
+  counter-reset: item;
+  padding-left: 10px;
+  margin-right: 10px;
+  padding-right: 10px;
+}
+
+li {
+    display: block
+}
+
+p{
+  text-align: justify;
+  color: white;
+  margin-left: 30px;
+  padding-left: 10px;
+  margin-right: 45px;
+  font: 20px Helvetica, sans-serif;
+
+}
+@media screen and (max-width: 800px) {
+  .left, .main, .right {
+    width: 100%;
+    }
+}
+
+img{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+  height: auto;
+}
+
+a{
+  color: orange;
+}
+.button {
+  background-color: black;
+  border: .5px solid #555555;
+  color: white;
+  padding: 10px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  cursor: pointer;
+  opacity: 40%;
+  position: relative;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  float: right;
+}
+#button li.btnhome a{
+  background-image:url('home.png');
+  background-repeat:no-repeat;
+  width:60px;
+  height:15px;
+}
+#button li.btnleft a{
+  background-image:url('left.png');
+  background-repeat:no-repeat;
+  width:60px;
+  height:15px;
+}
+.button:hover {
+  background-color: #000000;
+  opacity: 70%;
+  color: white;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 20px 50px 0 rgba(0,0,0,0.19);
+}

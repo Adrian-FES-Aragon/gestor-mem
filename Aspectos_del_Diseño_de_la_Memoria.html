@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+      <link rel="shortcut icon" href="icon.png">
+    <meta charset="utf-8">
+    <title>Aspectos del Diseño de la Memoria Virtual</title>
+    <link rel="stylesheet" href="1.css">
+  </head>
+  <body>
+    <div>
+      <h1>Aspectos del Diseño de la Memoria Virtual</h1>
+      <ul>
+        <h2>Tabla de páginas</h2>
+        <p>La tabla de páginas pude ser única, común a todos los procesos, o individual por proceso. El disponer de una tabla
+          de páginas propia supone disponer de un espacio virtual propio e independiente de los espacios virtuales de los otros
+          procesos.<br>
+          Por otro lado, la tabla de páginas se puede implementar como una tabla directa o inversa. La tabla directa es
+          una tabla ordenada por direcciones virtuales, por lo que permite hacer la traducción directamente. Por su lado,
+          la tabla inversa está ordenada por direcciones de memoria principal, por lo que exige una búsqueda en la misma
+          para hacer la traducción de direcciones.<br>
+          Otro aspecto importante es que la MMU puede diseñarse de manera que acceda a la tabla de páginas o que se limite
+          a utilizar la TLB para hacer la traducción.<br>
+          Si la MMU accede a la tabla de páginas tenemos las siguientes características:</p>
+        <ul>
+          <p>El diseño de la tabla de páginas viene determinado por la MMU.<br>
+          <ul>
+            <p>La MMU se encarga de tratar los fallos de acceso a la TLB, actualizándola, para lo que debe acceder a la
+            tabla de páginas.<br>
+            La MMU detecta los intentos de violación de memoria (direcciones no permitidas y tipo de acceso no permitido).<br>
+            La MMU se encarga de mantener los bits de accedido y modificado en la TLB y en la tabla de páginas.</p>
+          </ul>
+          <p>Si es el sistema operativo el único usuario de la tabla de páginas se tienen las siguientes características:</p>
+          <ul>
+            <p>El sistema operativo determina libremente el diseño de la tabla de páginas.<br>
+            La MMU detecta los fallos de acceso a la TLB, pero es el sistema operativo el que se encarga de actualizarla.<br>
+            Es el sistema operativo el encargado de detectar los intentos de acceso a direcciones no permitidas, mientras
+            que la MMU se encarga de detectar los tipos de accesos no permitidos.<br>
+            La MMU se encarga de mantener los bits de accedido y modificado en la TLB, pero es el sistema operativo el responsable de mantenerlos en la tabla de páginas.</p>
+          </ul>
+        </ul>
+
+        <h2>Políticas de administración de la memoria virtual</h2>
+        <p>Las políticas que definen el comportamiento de un sistema de memoria virtual son las siguientes:</p>
+        <ul>
+          <h4>Política de localización</h4>
+          <p>Permite localizar una determinada página dentro de la memoria secundaria.</p>
+          <h4>Política de extracción</h4>
+          <p>Define cuándo se transfiere una página desde la memoria secundaria a la principal.</p>
+          <h4>Política de ubicación</h4>
+          <p>Si hay varios marcos libres, establece cuál de ellos se utiliza para almacenar la página que se trae a memoria principal.</p>
+          <h4>Política de reemplazo</h4>
+          <p>En caso de que no haya marcos libres, determina qué página debe ser desplazada de la memoria principal para dejar sitio a la página entrante.</p>
+          <h4>Política de actualización</h4>
+          <p>Rige cómo se propagan las modificaciones de las páginas en memoria principal a la memoria secundaria.</p>
+          <h4>Política de reparto de espacio entre los procesos</h4>
+          <p>Decide cómo se reparte la memoria física entre los procesos existentes en un determinado instante.</p>
+        </ul>
+        .10.2.
+
+        
+        
+        
+        
+        
+        
+
+        4.10.3. Política de localización
+        La política de localización permite determinar la posición de la página en memoria secundaria. En el caso de la tabla
+        de páginas directa, la entrada de la tabla incluye un bit de presente/ausente y una dirección. En el caso de presente,
+        dicha dirección identificará el correspondiente marco de página, en caso de ausente dicha dirección puede identificar
+        la página en memoria secundaria o que es a rellenar a ceros.
+        En el caso de tabla de páginas inversa o en el caso de que la tabla directa no permita la solución anterior, el sis-
+        tema operativo deberá mantener una estructura de información que permita conocer la ubicación de las páginas en
+        memoria secundaria o que son a rellenar a ceros.
+        Como veremos más adelante, la técnica de buffering de páginas plantea la localización de páginas en unas lis-
+        tas de marcos libres y marcos modificados.
+        4.10.4. Política de extracción
+        La memoria virtual, en su forma ortodoxa, opera bajo demanda: sólo se trae a memoria principal una página cuando
+        el proceso accede a la misma. Sin embargo, casi todos los sistemas operativos implementan algún tipo de agrupa-
+        miento de páginas o de lectura anticipada de páginas, de manera que cuando se produce un fallo de página, no
+        sólo se trae a memoria la página involucrada, sino también algunas páginas próximas a la misma, puesto que, basán -
+        dose en la propiedad de proximidad de referencias que caracteriza a los programas, es posible que el proceso las ne -
+        cesite en un corto plazo de tiempo. Estas técnicas suelen englobarse bajo el término de prepaginación. La efectivi-
+        dad de las mismas va a depender de si hay acierto en esta predicción, es decir, si finalmente las páginas traídas van a
+        ser usadas, puesto que, en caso contrario, se ha perdido tiempo en traerlas, expulsando, además, de la memoria prin-
+        cipal a otras páginas que podrían haber sido más útiles.
+
+
+
+
+      </ul>
+    </div>
+  </body>
+</html>

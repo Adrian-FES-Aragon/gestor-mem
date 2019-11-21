@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+      <link rel="shortcut icon" href="icon.png">
+    <meta charset="utf-8">
+    <title>Niveles de Gestión de Memoria</title>
+    <link rel="stylesheet" href="1.css">
+  </head>
+  <body><a href="Esquemas_de_Gestion_de_la_Memoria.html" class="button">Siguiente</a> <a href="index.html" class="button">Inicio</a> <a href="Jerarquia.html" class="button">Anterior</a>
+    <div>
+      <h1>Nivel de Gestión de Memoria.</h1>
+      <p>En la gestión de la memoria se pueden distinguir los tres niveles siguientes:</p>
+      <ul>
+        <h4>Nivel de Procesos</h4>
+        <p>En este nivel se determina cómo se reparte el espacio de memoria entre los procesos
+          existentes. Se trata de un nivel gestionado por el sistema operativo.</p>
+        <h4>Nivel de regiones</h4>
+        <p>Establece cómo se reparte el espacio asignado al proceso entre las regiones del mismo.<br>
+        Nuevamente, es un nivel manejado por el sistema operativo.</p>
+        <h4>Nivel de datos dinámicos</h4>
+        <p>Como se verá a lo largo del capítulo, existen algunas regiones, como la región
+        de datos dinámicos o heap y la pila, que mantienen en su interior diversos bloques de información creados
+        dinámicamente por el programa. Por tanto, se requiere una estrategia de gestión que determine cómo se
+        asigna y recupera el espacio de la región para dar un adecuado soporte a esos bloques de información.<br>
+        Este nivel está gestionado por el propio lenguaje de programación.</p>
+      </ul>
+      <p>El SO tiene una visión macroscópica de la memoria de un proceso, consistente en la imagen de memoria y en
+      las regiones que componen dicha imagen de memoria. Por lo que se centra en los niveles de procesos y de regiones.
+      Por el contrario, el programa tiene una visión microscópica de la memoria, consistente en variables y estructuras
+      de datos declarados en el programa. Centrándose en el nivel de datos dinámicos.<br>
+      Las bibliotecas del lenguaje utilizado en el desarrollo del programa gestionan el espacio disponible en la región
+      de datos dinámicos y solamente llaman al SO cuando tienen que variar el tamaño de la región, o crear una nueva región.
+      Por lo tanto, crear una variable dinámica que quepa en la correspondiente región no implica al SO. Sin
+      embargo, crear una variable dinámica que no quepa en la región de datos dinámicos obliga a llamar al SO para que
+      aumente dicha región, o cree una nueva.</p>
+
+      <h2>Operaciones en el nivel de procesos</h2>
+      <p>En el nivel de procesos se realizan operaciones vinculadas con la gestión del mapa de memoria, que son las siguientes:</p>
+      <ul>
+        <h4>Crear la imagen de memoria del proceso</h4>
+        <p>Antes de comenzar la ejecución de un programa, hay que ini-
+        ciar su imagen de memoria tomando como base el fichero ejecutable que lo contiene. En UNIX se trata
+        del servicio exec, mientras que en Windows es CreateProcess, ya estudiados en el capítulo “3 Pro-
+        cesos”.</p>
+        <h4>Eliminar la imagen de memoria del proceso</h4>
+        <p>Cuando termina la ejecución de un proceso, hay que liberar todos sus recursos, entre los que está su imagen de memoria. El servicio exec de UNIX, requiere libe-
+        rar la imagen actual del proceso antes de crear la nueva imagen basada en el ejecutable especificado.
+        Duplicar la imagen de memoria del proceso. El servicio fork de UNIX crea un nuevo proceso cuya
+        imagen de memoria es un duplicado de la imagen del padre.</p>
+        <h4></h4>
+      </ul>
+      <p>Para completar este nivel, y aunque no tenga que ver directamente con la solicitud y liberación de espacio, falta una operación genérica adicional asociada al cambio de contexto:</p>
+      <h4>Cambiar de imagen de memoria de proceso</h4>
+      <p>Cuando se produce un cambio de contexto, habrá que activar de alguna forma la nueva imagen y desactivar la anterior.</p>
+
+      <h2>Operaciones en el nivel de regiones</h2>
+      <p>En el nivel de regiones, las operaciones están relacionadas con la gestión de las regiones</p>
+      <ul>
+        <h4>Crear una región para un proceso</h4>
+          <p>Esta operación será activada al crear la imagen del proceso, para
+          crear las regiones iniciales de la misma. Además, se utilizará para ir creando
+          las nuevas regiones que aparezcan según se va ejecutando el proceso.</p>
+        <h4>Eliminar una región de un proceso</h4>
+          <p>Al terminar un proceso hay que eliminar todas sus regiones. Además,
+          hay regiones que desaparecen durante la ejecución del proceso. Es
+          necesario recuperar los espacios de memoria o de swap asignados a la región.</p>
+        <h4>Cambiar el tamaño de una región</h4>
+          <p>Algunas regiones, como la pila y el heap, tienen un tamaño dinámico
+          que evoluciona según lo vaya requiriendo el proceso.</p>
+        <h4>Duplicar una región de la imagen de un proceso en la imagen de otro (duplicar_región)</h4>
+          <p>El duplicado de la imagen asociado al servicio fork requiere duplicar cada una de las regiones
+            del proceso padre.</p>
+        <h4>Compartir una región</h4>
+        <p>Compartir una región entre dos o más procesos exige que todos ellos puedan acceder a la misma región de memoria.</p>
+      </ul>
+      <p>En sistemas con memoria real se asigna y memoria principal. Sin embargo, en sistemas con memoria virtual se
+      asigna lo más económico, es decir, swap o rellenar con 0. No se asignan marcos de memoria principal</p>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+      <link rel="shortcut icon" href="icon.png">
+    <meta charset="utf-8">
+    <title>Introducción</title>
+    <link rel="stylesheet" href="1.css">
+  </head>
+  <body ><a href="Jerarquia.html" class="button">Siguiente</a> <a href="index.html" class="button">Inicio</a>
+    <div>
+    <h1>Introducción </h1>
+    <p>Según se ha visto en capítulos anteriores, todo proceso requiere una imagen de memoria compuesta tanto por el
+      código del programa como por los datos. <br>Como muestra la siguiente figura, dicha imagen consta generalmente de una
+      serie de regiones.</p>
+    <img src="img1.png" alt="Un proceso UNIX clásico incluye las regiones de memoria de Texto, Datos y Pila">
+    <p>Si bien la imagen de memoria del proceso clásico UNIX se organiza en las tres regiones de Texto, Datos y
+      Pila, veremos en este capítulo que el proceso puede incluir otras regiones, por ejemplo, para dar soporte a los threads
+      o a las bibliotecas dinámicas.<br>
+      También se ha visto que el mapa de memoria del computador puede estar soportado solamente por la memoria principal
+      del computador, lo que denominamos memoria real, o puede estar soportado por la memoria principal más una parte del
+      disco denominada zona de intercambio o swap, lo que denominamos memoria virtual.<br>
+      Finalmente, destacaremos que tanto el proceso como el procesador solamente entienden de direcciones del mapa de memoria.
+      El procesador, de acuerdo al programa en ejecución, genera una serie de solicitudes de escritura o de lectura a determinadas
+      direcciones del mapa de memoria, sin entrar en cuál es el soporte de esa dirección. Si el soporte es lento (porque
+      la dirección está en swap) la unidad de memoria no deja esperando al procesador sino que le envía una interrupción
+      para que se ejecute el sistema operativo y ponga en ejecución otro proceso.<br>
+      La imagen de memoria del proceso se genera a partir del fichero ejecutable. Aunque analizaremos más adelante la estructura
+      del fichero ejecutable, destacaremos aquí que dicho fichero contiene, entre otras cosas, el código objeto del programa,
+      así como sus datos estáticos con valor inicial</p>
+
+    <h2>Diversos tipos de objetos de memoria</h2>
+    <p>La imagen de memoria de un proceso debe almacenar el código y los datos. Sin embargo, no todos los datos de un programa
+      tienen las mismas características. Por un lado, hay datos de tipo constante que, al igual que el código, no deberán ser
+      modificados por ninguna sentencia del programa. Por otro lado, dependiendo del tipo de uso previsto para cada dato,
+      se presentan las siguientes alternativas en cuanto al tiempo de vida del mismo:</p>
+    <ul>
+      <li><h4>Datos estáticos.<h4> <p>Se trata de datos que existen durante toda la ejecución del programa. Al inicio de la ejecución
+        del programa se conoce cuántos datos de este tipo existen y se les habilita el espacio de almacenamiento requerido,
+        que se mantendrá durante toda la ejecución del programa, es decir, tienen una dirección fija.<br>
+        En esta categoría están los datos declarados como globales y los datos declarados como estáticos.</p> </li>
+
+      <li><h4>Datos dinámicos asociados a la ejecución de una función.<h4> <p>La vida de este tipo de datos está asociada a la
+        activación de una función, creándose en la invocación de la misma y destruyéndose cuando ésta termina. Estos datos se
+        crean por el propio programa en la región de pila del proceso, formando parte del registro de activación de rutina o RAR.
+        Igualmente, el programa les dará, en su caso, el valor inicial correspondiente.<br>
+        Dentro de esta categoría están los datos locales declarados dentro de las funciones así como los argumentos de las mismas.<br>
+        Cuando termina la función, termina la vida de estos datos, pero es de destacar que el RAR no se borra. Se sobrescribirá
+        cuando se llame a otra función.<br>
+        Cada llamada a función o procedimiento exige la creación del correspondiente RAR. En este sentido, al ejecutar una función
+        recursiva se irán apilando sucesivos RAR, uno por cada ciclo de recursividad.</p></li>
+
+      <li><h4>Datos dinámicos controlados por el programa.<h4> <p>Se trata de datos dinámicos, pero cuyo tiempo de vida no está
+        vinculado a la activación de una función, sino bajo el control directo del programa, que creará los datos cuando los
+        necesite. El espacio asociado a los datos se liberará por el programa cuando ya no se requiera. Este tipo de datos se
+        almacena habitualmente en una región denominada heap.
+    </p></li>
+    </ul>
+
+    <h2>Regiones típicas del proceso</h2>
+    <p>Las regiones típicas de un proceso son las tres de texto, datos y pila, que detallamos seguidamente:</p>
+    <ul>
+      <h4>Región de texto:</h4>
+        <p>Contiene el código máquina del programa así como las constantes y las cadenas definidas en el mismo.</p>
+      <h4>Región de datos.</h4>
+        <p>Se organiza en las tres subregiones siguientes:
+        <ul>
+          <p>Datos con valor inicial: contiene las variables globales inicializadas.<br>
+          Datos sin valor inicial: contiene las variables globales no inicializadas.<br>
+          Datos creados dinámicamente o heap. En este espacio es dónde se crean las variables dinámicas.</p>
+        </ul>
+      </p>
+      <h4>Región de pila:</h4>
+        <p>Soporta el entorno del proceso más los registros de activación de los procedimientos.</p>
+    </ul>
+
+    <h2>Gestor de memoria</h2>
+    <p>El gestor de memoria del sistema operativo es el encargado de cubrir las necesidades de memoria de los procesos,
+      por lo que tiene encomendadas las dos funciones siguientes:</p>
+      <ul>
+        <li><p>Como servidor de memoria debe asignar al proceso las regiones de memoria que puede utilizar, es decir,
+          los rangos de direcciones del mapa de memoria que puede utilizar. También debe recuperar dichas regiones
+          cuando el proceso ya no las necesite. De forma más concreta debe realizar las funciones siguientes:</p>
+          <ul>
+            <p>Crear y mantener la imagen de memoria de los procesos a partir de los ficheros ejecutables, ofreciendo
+              a cada proceso los espacios de memoria necesarios y dando soporte para las regiones necesarias.<br>
+            Proporcionar grandes espacios de memoria para cada proceso.<br>
+            Proporcionar protección entre procesos, aislando unos procesos de otros, pero permitiendo que los
+            procesos puedan compartir regiones de memoria de una forma controlada.<br>
+            Controlar los espacios de direcciones de los mapas de memoria ocupados y libres.<br>
+            Tratar los errores de acceso a memoria: detectados por el hardware.<br>
+            Optimizar las prestaciones del sistema</p>
+          </ul>
+        </li>
+        <li><p>Como gestor de recursos físicos debe gestionar la asignación de memoria principal y de swap, en el caso
+          de memoria virtual. De forma más concreta debe realizar las funciones siguientes:</p>
+          <ul>
+            <p>Controlar los espacios de direcciones de memoria principal y de intercambio ocupados y libres.<br>
+            Asignar espacios de memoria principal y de swap.<br>
+            Recuperar los recursos físicos de almacenamiento asignados cuando el proceso ya no los necesite.</p>
+          </ul>
+        </li>
+      </ul>
+    <p>Conviene no confundir estas dos funciones de servidor de memoria y de gestor de recursos físicos, puesto que
+      cambiar de soporte físico una página, copiándola de swap a un marco de página de memoria principal, no representa
+      asignar nueva memoria al proceso. Éste seguirá disponiendo del mismo espacio de direcciones; solamente se ha
+      cambiado el soporte físico de una parte de ese espacio.</p>
+
+    <h2>Protección de memoria</h2>
+    <p>La protección de memoria es necesaria tanto en monoproceso como multiproceso, puesto que hay que proteger al
+      sistema operativo del o de los procesos activos y hay que proteger a unos procesos frente a otros. Desde el punto de
+      vista de la memoria hay que garantizar que los accesos a memoria que realizan los procesos son correctos. Para ello
+      es necesario validar cada una de las direcciones que generen los procesos.<br>
+      Evidentemente, esta validación exige una supervisión continua, que no puede realizar el sistema operativo, por
+      lo que, asociado a la unidad de memoria, es necesario disponer de un hardware que analice la dirección y el tipo de
+      cada acceso a memoria. Este hardware generará una excepción cuando detecte un acceso inválido.<br>
+      El tratamiento del acceso inválido lo hace el sistema operativo, como varemos más adelante.<br>
+      Otro aspecto de la protección de memoria es el relativo a la reutilización de los elementos físicos de memoria,
+      ya sea memoria principal o swap. Antes de asignar un recurso físico de memoria a un proceso hay que garantizar
+      que éste no podrá leer información dejada en ese recurso por otro proceso que tuvo previamente asignado el recurso.<br>
+      Es por tanto, necesario escribir en el recurso rellenándolo con la información inicial del propio proceso o rellenándolo con 0 si no existe información inicial.</p>
+</div>
+  </body>
+</html>
