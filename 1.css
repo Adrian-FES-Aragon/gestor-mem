@@ -17,7 +17,7 @@ h4{
 body{
   background: url(back1.jpg) no-repeat center fixed;
   background-size: cover;
-  height: 500px;
+  height: auto;
   position: relative;
 }
 
