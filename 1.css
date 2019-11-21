@@ -15,14 +15,11 @@ h4{
 }
 
 body{
-  background-image: url(back1.jpg);
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  background: url(back1.jpg) no-repeat center fixed;
   background-size: cover;
-  background-color: #orange;
-
-  }
+  height: 500px;
+  position: relative;
+}
 
 div{
   margin: 45px;
@@ -100,18 +97,7 @@ a{
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
   float: right;
 }
-#button li.btnhome a{
-  background-image:url('home.png');
-  background-repeat:no-repeat;
-  width:60px;
-  height:15px;
-}
-#button li.btnleft a{
-  background-image:url('left.png');
-  background-repeat:no-repeat;
-  width:60px;
-  height:15px;
-}
+
 .button:hover {
   background-color: #000000;
   opacity: 70%;
